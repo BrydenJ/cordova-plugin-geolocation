@@ -72,25 +72,25 @@ exports.defineAutoTests = function () {
     var isIOSSim = false; // if iOS simulator does not have a location set, it will fail.
 
 
-    describe('Geolocation (navigator.geolocation)', function () {
+    describe('Geolocation (plugins.geolocation)', function () {
 
         it("geolocation.spec.1 should exist", function () {
-            expect(navigator.geolocation).toBeDefined();
+            expect(plugins.geolocation).toBeDefined();
         });
 
         it("geolocation.spec.2 should contain a getCurrentPosition function", function () {
-            expect(typeof navigator.geolocation.getCurrentPosition).toBeDefined();
-            expect(typeof navigator.geolocation.getCurrentPosition == 'function').toBe(true);
+            expect(typeof plugins.geolocation.getCurrentPosition).toBeDefined();
+            expect(typeof plugins.geolocation.getCurrentPosition == 'function').toBe(true);
         });
 
         it("geolocation.spec.3 should contain a watchPosition function", function () {
-            expect(typeof navigator.geolocation.watchPosition).toBeDefined();
-            expect(typeof navigator.geolocation.watchPosition == 'function').toBe(true);
+            expect(typeof plugins.geolocation.watchPosition).toBeDefined();
+            expect(typeof plugins.geolocation.watchPosition == 'function').toBe(true);
         });
 
         it("geolocation.spec.4 should contain a clearWatch function", function () {
-            expect(typeof navigator.geolocation.clearWatch).toBeDefined();
-            expect(typeof navigator.geolocation.clearWatch == 'function').toBe(true);
+            expect(typeof plugins.geolocation.clearWatch).toBeDefined();
+            expect(typeof plugins.geolocation.clearWatch == 'function').toBe(true);
         });
 
     });
@@ -104,7 +104,7 @@ exports.defineAutoTests = function () {
                     pending();
                 }
 
-                navigator.geolocation.getCurrentPosition(
+                plugins.geolocation.getCurrentPosition(
                     fail.bind(null, done),
                     succeed.bind(null, done),
                     {
@@ -118,7 +118,7 @@ exports.defineAutoTests = function () {
                     pending();
                 }
 
-                navigator.geolocation.getCurrentPosition(
+                plugins.geolocation.getCurrentPosition(
                     fail.bind(this, done),
                     function(gpsError) {
                         // W3C specs: http://dev.w3.org/geo/api/spec-source.html#position_error_interface
@@ -142,7 +142,7 @@ exports.defineAutoTests = function () {
                     pending();
                 }
 
-                navigator.geolocation.getCurrentPosition(function (p) {
+                plugins.geolocation.getCurrentPosition(function (p) {
                     expect(p.coords).toBeDefined();
                     expect(p.timestamp).toBeDefined();
                     done();
@@ -179,7 +179,7 @@ exports.defineAutoTests = function () {
 
             var errorWatch = null;
             afterEach(function () {
-                navigator.geolocation.clearWatch(errorWatch);
+                plugins.geolocation.clearWatch(errorWatch);
             });
 
             it("geolocation.spec.7 should be called if we set timeout to 0 and maximumAge to a very small number", function (done) {
@@ -188,7 +188,7 @@ exports.defineAutoTests = function () {
                 }
 
                 var context = this;
-                errorWatch = navigator.geolocation.watchPosition(
+                errorWatch = plugins.geolocation.watchPosition(
                     fail.bind(null, done, context, 'Unexpected win'),
                     succeed.bind(null, done, context),
                     {
@@ -203,7 +203,7 @@ exports.defineAutoTests = function () {
                 }
 
                 var context = this;
-                errorWatch = navigator.geolocation.watchPosition(
+                errorWatch = plugins.geolocation.watchPosition(
                     fail.bind(this, done, context, 'Unexpected win'),
                     function(gpsError) {
                         if (context.done) return;
@@ -228,7 +228,7 @@ exports.defineAutoTests = function () {
 
             var successWatch = null;
             afterEach(function () {
-                navigator.geolocation.clearWatch(successWatch);
+                plugins.geolocation.clearWatch(successWatch);
             });
 
             it("geolocation.spec.8 should be called with a Position object", function (done) {
@@ -237,7 +237,7 @@ exports.defineAutoTests = function () {
                 }
 
                 var context = this;
-                successWatch = navigator.geolocation.watchPosition(
+                successWatch = plugins.geolocation.watchPosition(
                     function (p) {
                         // prevents done() to be called several times
                         if (context.done) return;
@@ -292,9 +292,9 @@ exports.defineManualTests = function (contentEl, createActionButton) {
      * Stop watching the location
      */
     function stopLocation() {
-        var geo = navigator.geolocation;
+        var geo = plugins.geolocation;
         if (!geo) {
-            alert('navigator.geolocation object is missing.');
+            alert('plugins.geolocation object is missing.');
             return;
         }
         setLocationStatus("Stopped");
@@ -308,9 +308,9 @@ exports.defineManualTests = function (contentEl, createActionButton) {
      * Start watching location
      */
     var watchLocation = function () {
-        var geo = navigator.geolocation;
+        var geo = plugins.geolocation;
         if (!geo) {
-            alert('navigator.geolocation object is missing.');
+            alert('plugins.geolocation object is missing.');
             return;
         }
 
@@ -334,9 +334,9 @@ exports.defineManualTests = function (contentEl, createActionButton) {
      * Get current location
      */
     var getLocation = function (opts) {
-        var geo = navigator.geolocation;
+        var geo = plugins.geolocation;
         if (!geo) {
-            alert('navigator.geolocation object is missing.');
+            alert('plugins.geolocation object is missing.');
             return;
         }
 

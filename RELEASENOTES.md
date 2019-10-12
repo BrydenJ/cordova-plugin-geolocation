@@ -63,7 +63,7 @@
 * [CB-10278](https://issues.apache.org/jira/browse/CB-10278) geolocation watchPosition doesn't return watchID string
 * [CB-8443](https://issues.apache.org/jira/browse/CB-8443) Android: nothing happens if GPS is turned off
 * [CB-10204](https://issues.apache.org/jira/browse/CB-10204) Fix getCurrentPosition options on Android
-* [CB-7146](https://issues.apache.org/jira/browse/CB-7146) Remove built-in WebView navigator.geolocation manual tests
+* [CB-7146](https://issues.apache.org/jira/browse/CB-7146) Remove built-in WebView plugins.geolocation manual tests
 * [CB-2845](https://issues.apache.org/jira/browse/CB-2845) PositionError constants not attached to prototype as specified in W3C document
 * [CB-10035](https://issues.apache.org/jira/browse/CB-10035) Incremented plugin version.
 * [CB-10035](https://issues.apache.org/jira/browse/CB-10035) linked issues in RELEASENOTES.md
@@ -250,7 +250,7 @@
 * [CB-10278](https://issues.apache.org/jira/browse/CB-10278) geolocation `watchPosition` doesn't return `watchID` string
 * [CB-8443](https://issues.apache.org/jira/browse/CB-8443) **Android** nothing happens if `GPS` is turned off
 * [CB-10204](https://issues.apache.org/jira/browse/CB-10204) Fix `getCurrentPosition` options on **Android**
-* [CB-7146](https://issues.apache.org/jira/browse/CB-7146) Remove built-in `WebView navigator.geolocation` manual tests
+* [CB-7146](https://issues.apache.org/jira/browse/CB-7146) Remove built-in `WebView plugins.geolocation` manual tests
 * [CB-2845](https://issues.apache.org/jira/browse/CB-2845) `PositionError` constants not attached to prototype as specified in W3C document
 
 ### 2.0.0 (Nov 18, 2015)

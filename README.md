@@ -57,7 +57,7 @@ above, as well as obtaining the user's permission (e.g., by presenting
 choices for __OK__ and __No Thanks__).  For more information, please
 see the [Privacy Guide](http://cordova.apache.org/docs/en/latest/guide/appdev/privacy/index.html).
 
-This plugin defines a global `navigator.geolocation` object (for platforms
+This plugin defines a global `plugins.geolocation` object (for platforms
 where it is otherwise missing).
 
 Although the object is in the global scope, features provided by this plugin
@@ -67,7 +67,7 @@ are not available until after the `deviceready` event.
 
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
-        console.log("navigator.geolocation works well");
+        console.log("plugins.geolocation works well");
     }
 
 ```
@@ -99,9 +99,9 @@ It is also possible to install via repo url directly ( unstable )
 
 ## Methods
 
-- navigator.geolocation.getCurrentPosition
-- navigator.geolocation.watchPosition
-- navigator.geolocation.clearWatch
+- plugins.geolocation.getCurrentPosition
+- plugins.geolocation.watchPosition
+- plugins.geolocation.clearWatch
 
 ## Objects (Read-Only)
 
@@ -109,14 +109,14 @@ It is also possible to install via repo url directly ( unstable )
 - PositionError
 - Coordinates
 
-## navigator.geolocation.getCurrentPosition
+## plugins.geolocation.getCurrentPosition
 
 Returns the device's current position to the `geolocationSuccess`
 callback with a `Position` object as the parameter.  If there is an
 error, the `geolocationError` callback is passed a
 `PositionError` object.
 
-    navigator.geolocation.getCurrentPosition(geolocationSuccess,
+    plugins.geolocation.getCurrentPosition(geolocationSuccess,
                                              [geolocationError],
                                              [geolocationOptions]);
 
@@ -155,7 +155,7 @@ error, the `geolocationError` callback is passed a
               'message: ' + error.message + '\n');
     }
 
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    plugins.geolocation.getCurrentPosition(onSuccess, onError);
 
 ```
 
@@ -175,7 +175,7 @@ error, the `geolocationError` callback is passed a
 If Geolocation service is turned off the `onError` callback is invoked after `timeout` interval (if specified).
 If `timeout` parameter is not specified then no callback is called.
 
-## navigator.geolocation.watchPosition
+## plugins.geolocation.watchPosition
 
 Returns the device's current position when a change in position is detected.
 When the device retrieves a new location, the `geolocationSuccess`
@@ -183,7 +183,7 @@ callback executes with a `Position` object as the parameter.  If
 there is an error, the `geolocationError` callback executes with a
 `PositionError` object as the parameter.
 
-    var watchId = navigator.geolocation.watchPosition(geolocationSuccess,
+    var watchId = plugins.geolocation.watchPosition(geolocationSuccess,
                                                       [geolocationError],
                                                       [geolocationOptions]);
 
@@ -197,7 +197,7 @@ there is an error, the `geolocationError` callback executes with a
 
 ### Returns
 
-- __String__: returns a watch id that references the watch position interval. The watch id should be used with `navigator.geolocation.clearWatch` to stop watching for changes in position.
+- __String__: returns a watch id that references the watch position interval. The watch id should be used with `plugins.geolocation.clearWatch` to stop watching for changes in position.
 
 ### Example
 
@@ -223,7 +223,7 @@ there is an error, the `geolocationError` callback executes with a
 
     // Options: throw an error if no update is received every 30 seconds.
     //
-    var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
+    var watchID = plugins.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
 
 ```
 
@@ -238,7 +238,7 @@ Optional parameters to customize the retrieval of the geolocation
 
 - __enableHighAccuracy__: Provides a hint that the application needs the best possible results. By default, the device attempts to retrieve a `Position` using network-based methods. Setting this property to `true` tells the framework to use more accurate methods, such as satellite positioning. _(Boolean)_
 
-- __timeout__: The maximum length of time (milliseconds) that is allowed to pass from the call to `navigator.geolocation.getCurrentPosition` or `geolocation.watchPosition` until the corresponding `geolocationSuccess` callback executes. If the `geolocationSuccess` callback is not invoked within this time, the `geolocationError` callback is passed a `PositionError.TIMEOUT` error code. (Note that when used in conjunction with `geolocation.watchPosition`, the `geolocationError` callback could be called on an interval every `timeout` milliseconds!) _(Number)_
+- __timeout__: The maximum length of time (milliseconds) that is allowed to pass from the call to `plugins.geolocation.getCurrentPosition` or `geolocation.watchPosition` until the corresponding `geolocationSuccess` callback executes. If the `geolocationSuccess` callback is not invoked within this time, the `geolocationError` callback is passed a `PositionError.TIMEOUT` error code. (Note that when used in conjunction with `geolocation.watchPosition`, the `geolocationError` callback could be called on an interval every `timeout` milliseconds!) _(Number)_
 
 - __maximumAge__: Accept a cached position whose age is no greater than the specified time in milliseconds. _(Number)_
 
@@ -247,12 +247,12 @@ Optional parameters to customize the retrieval of the geolocation
 If Geolocation service is turned off the `onError` callback is invoked after `timeout` interval (if specified).
 If `timeout` parameter is not specified then no callback is called.
 
-## navigator.geolocation.clearWatch
+## plugins.geolocation.clearWatch
 
 Stop watching for changes to the device's location referenced by the
 `watchID` parameter.
 
-    navigator.geolocation.clearWatch(watchID);
+    plugins.geolocation.clearWatch(watchID);
 
 ### Parameters
 
@@ -265,11 +265,11 @@ Stop watching for changes to the device's location referenced by the
     // Options: watch for changes in position, and use the most
     // accurate position acquisition method available.
     //
-    var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
+    var watchID = plugins.geolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
 
     // ...later on...
 
-    navigator.geolocation.clearWatch(watchID);
+    plugins.geolocation.clearWatch(watchID);
 
 ```
 
@@ -316,7 +316,7 @@ __altitudeAccuracy__: Not supported by Android devices, returning `null`.
 ## PositionError
 
 The `PositionError` object is passed to the `geolocationError`
-callback function when an error occurs with navigator.geolocation.
+callback function when an error occurs with plugins.geolocation.
 
 ### Properties
 
@@ -331,7 +331,7 @@ callback function when an error occurs with navigator.geolocation.
 - `PositionError.POSITION_UNAVAILABLE`
   - Returned when the device is unable to retrieve a position. In general, this means the device is not connected to a network or can't get a satellite fix.
 - `PositionError.TIMEOUT`
-  - Returned when the device is unable to retrieve a position within the time specified by the `timeout` included in `geolocationOptions`. When used with `navigator.geolocation.watchPosition`, this error could be repeatedly passed to the `geolocationError` callback every `timeout` milliseconds.
+  - Returned when the device is unable to retrieve a position within the time specified by the `timeout` included in `geolocationOptions`. When used with `plugins.geolocation.watchPosition`, this error could be repeatedly passed to the `geolocationError` callback every `timeout` milliseconds.
 
 
 ## <a id="sample"></a>Sample: Get the weather, find stores, and see photos of things nearby with Geolocation ##
@@ -353,7 +353,7 @@ Here's a "cookbook" of ideas to get you started. In the snippets below, we'll sh
 
 function getWeatherLocation() {
 
-    navigator.geolocation.getCurrentPosition
+    plugins.geolocation.getCurrentPosition
     (onWeatherSuccess, onWeatherError, { enableHighAccuracy: true });
 }
 
@@ -428,7 +428,7 @@ function onWeatherError(error) {
 
 function watchWeatherPosition() {
 
-    return navigator.geolocation.watchPosition
+    return plugins.geolocation.watchPosition
     (onWeatherWatchSuccess, onWeatherError, { enableHighAccuracy: true });
 }
 
@@ -473,7 +473,7 @@ var Longitude = undefined;
 
 function getMapLocation() {
 
-    navigator.geolocation.getCurrentPosition
+    plugins.geolocation.getCurrentPosition
     (onMapSuccess, onMapError, { enableHighAccuracy: true });
 }
 
@@ -540,7 +540,7 @@ function onMapError(error) {
 
 function watchMapPosition() {
 
-    return navigator.geolocation.watchPosition
+    return plugins.geolocation.watchPosition
     (onMapWatchSuccess, onMapError, { enableHighAccuracy: true });
 }
 
@@ -572,7 +572,7 @@ var Longitude = undefined;
 // Get geo coordinates
 
 function getPlacesLocation() {
-    navigator.geolocation.getCurrentPosition
+    plugins.geolocation.getCurrentPosition
     (onPlacesSuccess, onPlacesError, { enableHighAccuracy: true });
 }
 
@@ -675,7 +675,7 @@ function onPlacesError(error) {
 
 function watchPlacesPosition() {
 
-    return navigator.geolocation.watchPosition
+    return plugins.geolocation.watchPosition
     (onPlacesWatchSuccess, onPlacesError, { enableHighAccuracy: true });
 }
 
@@ -696,7 +696,7 @@ var Longitude = undefined;
 
 function getPicturesLocation() {
 
-    navigator.geolocation.getCurrentPosition
+    plugins.geolocation.getCurrentPosition
     (onPicturesSuccess, onPicturesError, { enableHighAccuracy: true });
 
 }
@@ -762,7 +762,7 @@ function onPicturesError(error) {
 
 function watchPicturePosition() {
 
-    return navigator.geolocation.watchPosition
+    return plugins.geolocation.watchPosition
     (onPicturesWatchSuccess, onPicturesError, { enableHighAccuracy: true });
 }
 
