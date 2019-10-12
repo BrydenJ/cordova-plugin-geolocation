@@ -20,7 +20,7 @@
 */
 
 var idsMap = {},
-    geo = cordova.require('cordova/modulemapper').getOriginalSymbol(window, 'plugins.geolocation');
+    geo = cordova.require('cordova/modulemapper').getOriginalSymbol(window, 'pluginGeolocation');
 
 module.exports = {
 

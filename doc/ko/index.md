@@ -27,13 +27,13 @@
 
 **경고**: 중요 한 개인 정보 보호 문제를 제기 하는 위치 정보 데이터의 수집 및 사용 합니다. 응용 프로그램의 개인 정보 보호 정책 다른 당사자와의 데이터 (예를 들어, 굵고, 괜 찮 아 요, 우편 번호, 등)의 정밀도 수준을 공유 여부를 app 지리적 데이터를 사용 하는 방법 토론 해야 한다. 그것은 사용자의 행방을 밝힐 수 있기 때문에 및 저장, 그들의 여행 역사 지리적 위치 데이터는 일반적으로 민감한 간주. 따라서, 애플 리 케이 션의 개인 정보 보호 정책 뿐만 아니라 강력 하 게 좋습니다 (해당 되는 경우 장치 운영 체제 이렇게 이미 하지 않는) 응용 프로그램 위치 정보 데이터에 액세스 하기 전에 그냥--시간 통지. 그 통지는 (예를 들어, **확인** 및 **아니오**선택 제시) 하 여 사용자의 허가 취득 뿐만 아니라, 위에서 언급 된 동일한 정보를 제공 해야 합니다. 자세한 내용은 개인 정보 보호 가이드를 참조 하십시오.
 
-이 플러그인 (플랫폼은 그렇지 않으면 누락 된)에 대 한 전역 `plugins.geolocation` 개체를 정의 합니다.
+이 플러그인 (플랫폼은 그렇지 않으면 누락 된)에 대 한 전역 `pluginGeolocation` 개체를 정의 합니다.
 
 개체가 전역 범위에 있지만,이 플러그인에 의해 제공 되는 기능 하지 사용할 수 있습니다까지 `deviceready` 이벤트 후.
 
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
-        console.log("plugins.geolocation works well");
+        console.log("pluginGeolocation works well");
     }
     
 
@@ -55,9 +55,9 @@
 
 ## 메서드
 
-*   plugins.geolocation.getCurrentPosition
-*   plugins.geolocation.watchPosition
-*   plugins.geolocation.clearWatch
+*   pluginGeolocation.getCurrentPosition
+*   pluginGeolocation.watchPosition
+*   pluginGeolocation.clearWatch
 
 ## (읽기 전용) 개체
 
@@ -65,11 +65,11 @@
 *   PositionError
 *   Coordinates
 
-## plugins.geolocation.getCurrentPosition
+## pluginGeolocation.getCurrentPosition
 
 매개 변수 `Position` 개체와 `geolocationSuccess`를 디바이스의 현재 위치를 반환합니다. 오류가 있는 경우에, `geolocationError` 콜백 `PositionError` 개체에 전달 됩니다.
 
-    plugins.geolocation.getCurrentPosition(geolocationSuccess,
+    pluginGeolocation.getCurrentPosition(geolocationSuccess,
                                              [geolocationError],
                                              [geolocationOptions]);
     
@@ -106,14 +106,14 @@
               'message: ' + error.message + '\n');
     }
     
-    plugins.geolocation.getCurrentPosition(onSuccess, onError);
+    pluginGeolocation.getCurrentPosition(onSuccess, onError);
     
 
-## plugins.geolocation.watchPosition
+## pluginGeolocation.watchPosition
 
 위치에 변화를 탐지할 때 소자의 현재 위치를 반환 합니다. 장치 새 위치를 검색 하는 경우 `geolocationSuccess` 콜백 매개 변수로 개체를 `Position`으로 실행 합니다. 오류가 있는 경우에, `geolocationError` 콜백 매개 변수로 `PositionError` 개체를 실행 합니다.
 
-    var watchId = plugins.geolocation.watchPosition(geolocationSuccess,
+    var watchId = pluginGeolocation.watchPosition(geolocationSuccess,
                                                       [geolocationError],
                                                       [geolocationOptions]);
     
@@ -128,7 +128,7 @@
 
 ### 반환
 
-*   **문자열**: 시계 위치 간격을 참조 하는 시계 id를 반환 합니다. 시계 id와 함께 사용 해야 합니다 `plugins.geolocation.clearWatch` 위치 변화에 대 한 보고 중지.
+*   **문자열**: 시계 위치 간격을 참조 하는 시계 id를 반환 합니다. 시계 id와 함께 사용 해야 합니다 `pluginGeolocation.clearWatch` 위치 변화에 대 한 보고 중지.
 
 ### 예를 들어
 
@@ -152,7 +152,7 @@
     
     // Options: throw an error if no update is received every 30 seconds.
     //
-    var watchID = plugins.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
+    var watchID = pluginGeolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
     
 
 ## geolocationOptions
@@ -166,7 +166,7 @@
 
 *   **enableHighAccuracy**: 힌트는 응용 프로그램에 필요한 최상의 결과 제공 합니다. 기본적으로 장치를 검색 하려고 한 `Position` 네트워크 기반 방법을 사용 하 여. 이 속성을 설정 `true` 위성 위치 등 보다 정확한 방법을 사용 하 여 프레임 워크. *(부울)*
 
-*   **시간 제한**: 최대 시간의 길이 (밀리초) 호출에서 전달할 수 있는 `plugins.geolocation.getCurrentPosition` 또는 `geolocation.watchPosition` 해당까지 `geolocationSuccess` 콜백 실행. 경우는 `geolocationSuccess` 콜백이이 시간 내에서 호출 되지 않습니다는 `geolocationError` 콜백 전달 되는 `PositionError.TIMEOUT` 오류 코드. (함께 사용 하는 경우 `geolocation.watchPosition` , `geolocationError` 콜백 간격에서 호출 될 수 있는 모든 `timeout` 밀리초!) *(수)*
+*   **시간 제한**: 최대 시간의 길이 (밀리초) 호출에서 전달할 수 있는 `pluginGeolocation.getCurrentPosition` 또는 `geolocation.watchPosition` 해당까지 `geolocationSuccess` 콜백 실행. 경우는 `geolocationSuccess` 콜백이이 시간 내에서 호출 되지 않습니다는 `geolocationError` 콜백 전달 되는 `PositionError.TIMEOUT` 오류 코드. (함께 사용 하는 경우 `geolocation.watchPosition` , `geolocationError` 콜백 간격에서 호출 될 수 있는 모든 `timeout` 밀리초!) *(수)*
 
 *   **maximumAge**: 밀리초 단위로 지정 된 시간 보다 더 큰 되는 캐시 위치를 수락 합니다. *(수)*
 
@@ -174,11 +174,11 @@
 
 `EnableHighAccuracy` 옵션을 `true`로 설정 되어 있지 않으면 안 드 로이드 2.x 에뮬레이터 위치 결과 반환 하지 않는.
 
-## plugins.geolocation.clearWatch
+## pluginGeolocation.clearWatch
 
 `watchID` 매개 변수에서 참조 하는 소자의 위치 변경에 대 한 보고 중지 합니다.
 
-    plugins.geolocation.clearWatch(watchID);
+    pluginGeolocation.clearWatch(watchID);
     
 
 ### 매개 변수
@@ -190,11 +190,11 @@
     // Options: watch for changes in position, and use the most
     // accurate position acquisition method available.
     //
-    var watchID = plugins.geolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
+    var watchID = pluginGeolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
     
     // ...later on...
     
-    plugins.geolocation.clearWatch(watchID);
+    pluginGeolocation.clearWatch(watchID);
     
 
 ## Position
@@ -237,7 +237,7 @@
 
 ## PositionError
 
-`PositionError` 개체는 plugins.geolocation와 함께 오류가 발생 하면 `geolocationError` 콜백 함수에 전달 됩니다.
+`PositionError` 개체는 pluginGeolocation와 함께 오류가 발생 하면 `geolocationError` 콜백 함수에 전달 됩니다.
 
 ### 속성
 
@@ -252,4 +252,4 @@
 *   `PositionError.POSITION_UNAVAILABLE` 
     *   장치 위치를 검색할 수 없을 때 반환 합니다. 일반적으로,이 장치는 네트워크에 연결 되어 있지 않은 또는 위성 수정 프로그램을 얻을 수 없습니다 의미 합니다.
 *   `PositionError.TIMEOUT` 
-    *   장치에 지정 된 시간 내에서 위치를 검색할 수 없는 경우 반환 되는 `timeout` 에 포함 된 `geolocationOptions` . 함께 사용 될 때 `plugins.geolocation.watchPosition` ,이 오류를 반복적으로 전달 될 수는 `geolocationError` 콜백 매 `timeout` 밀리초.
+    *   장치에 지정 된 시간 내에서 위치를 검색할 수 없는 경우 반환 되는 `timeout` 에 포함 된 `geolocationOptions` . 함께 사용 될 때 `pluginGeolocation.watchPosition` ,이 오류를 반복적으로 전달 될 수는 `geolocationError` 콜백 매 `timeout` 밀리초.

@@ -27,13 +27,13 @@
 
 **警告**： 地理定位資料的收集和使用提出了重要的隱私問題。 您的應用程式的隱私權原則應該討論這款應用程式如何使用地理定位資料，資料是否共用它的任何其他締約方和的資料 （例如，粗、 細，ZIP 代碼級別，等等） 的精度水準。 地理定位資料一般認為是敏感，因為它能揭示使用者的下落以及如果存儲，他們的旅行的歷史。 因此，除了應用程式的隱私權原則，您應強烈考慮之前應用程式訪問地理定位資料 （如果設備作業系統不會這樣做已經) 提供在時間的通知。 該通知應提供相同的資訊上文指出的並獲取該使用者的許可權 （例如，通過為**確定**並**不感謝**提出的選擇）。 有關詳細資訊，請參閱隱私指南。
 
-這個外掛程式定義了一個全球 `plugins.geolocation` 物件 （為平臺哪裡否則丟失）。
+這個外掛程式定義了一個全球 `pluginGeolocation` 物件 （為平臺哪裡否則丟失）。
 
 儘管物件是在全球範圍內，提供這個外掛程式的功能不可用直到 `deviceready` 事件之後。
 
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
-        console.log("plugins.geolocation works well");
+        console.log("pluginGeolocation works well");
     }
     
 
@@ -55,9 +55,9 @@
 
 ## 方法
 
-*   plugins.geolocation.getCurrentPosition
-*   plugins.geolocation.watchPosition
-*   plugins.geolocation.clearWatch
+*   pluginGeolocation.getCurrentPosition
+*   pluginGeolocation.watchPosition
+*   pluginGeolocation.clearWatch
 
 ## 物件 （唯讀）
 
@@ -65,11 +65,11 @@
 *   PositionError
 *   Coordinates
 
-## plugins.geolocation.getCurrentPosition
+## pluginGeolocation.getCurrentPosition
 
 返回設備的當前位置到 `geolocationSuccess` 回檔與 `Position` 物件作為參數。 如果有錯誤，`geolocationError` 回檔傳遞一個 `PositionError` 物件。
 
-    plugins.geolocation.getCurrentPosition(geolocationSuccess,
+    pluginGeolocation.getCurrentPosition(geolocationSuccess,
                                              [geolocationError],
                                              [geolocationOptions]);
     
@@ -106,14 +106,14 @@
               'message: ' + error.message + '\n');
     }
     
-    plugins.geolocation.getCurrentPosition(onSuccess, onError);
+    pluginGeolocation.getCurrentPosition(onSuccess, onError);
     
 
-## plugins.geolocation.watchPosition
+## pluginGeolocation.watchPosition
 
 返回設備的當前的位置，當檢測到更改位置。 當設備檢索一個新位置時，則 `geolocationSuccess` 回檔執行與 `Position` 物件作為參數。 如果有錯誤，則 `geolocationError` 回檔執行同一個 `PositionError` 物件作為參數。
 
-    var watchId = plugins.geolocation.watchPosition(geolocationSuccess,
+    var watchId = pluginGeolocation.watchPosition(geolocationSuccess,
                                                       [geolocationError],
                                                       [geolocationOptions]);
     
@@ -128,7 +128,7 @@
 
 ### 返回
 
-*   **String**： 返回引用的觀看位置間隔的表 id。 應與一起使用的表 id `plugins.geolocation.clearWatch` 停止了觀看中位置的更改。
+*   **String**： 返回引用的觀看位置間隔的表 id。 應與一起使用的表 id `pluginGeolocation.clearWatch` 停止了觀看中位置的更改。
 
 ### 示例
 
@@ -152,7 +152,7 @@
     
     // Options: throw an error if no update is received every 30 seconds.
     //
-    var watchID = plugins.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
+    var watchID = pluginGeolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
     
 
 ## geolocationOptions
@@ -166,7 +166,7 @@
 
 *   **enableHighAccuracy**： 提供應用程式需要最佳的可能結果的提示。 預設情況下，該設備將嘗試檢索 `Position` 使用基於網路的方法。 將此屬性設置為 `true` 告訴要使用更精確的方法，如衛星定位的框架。 *(布林值)*
 
-*   **timeout**： 時間 (毫秒) 從調用傳遞，允許的最大長度 `plugins.geolocation.getCurrentPosition` 或 `geolocation.watchPosition` 直到相應的 `geolocationSuccess` 回檔執行。 如果 `geolocationSuccess` 不會在此時間內調用回檔 `geolocationError` 傳遞回檔 `PositionError.TIMEOUT` 錯誤代碼。 (請注意，與一起使用時 `geolocation.watchPosition` 、 `geolocationError` 的時間間隔可以調用回檔每 `timeout` 毫秒!)*（人數）*
+*   **timeout**： 時間 (毫秒) 從調用傳遞，允許的最大長度 `pluginGeolocation.getCurrentPosition` 或 `geolocation.watchPosition` 直到相應的 `geolocationSuccess` 回檔執行。 如果 `geolocationSuccess` 不會在此時間內調用回檔 `geolocationError` 傳遞回檔 `PositionError.TIMEOUT` 錯誤代碼。 (請注意，與一起使用時 `geolocation.watchPosition` 、 `geolocationError` 的時間間隔可以調用回檔每 `timeout` 毫秒!)*（人數）*
 
 *   **maximumAge**： 接受其年齡大於指定以毫秒為單位的時間沒有緩存的位置。*（人數）*
 
@@ -174,11 +174,11 @@
 
 Android 2.x 模擬器不除非 `enableHighAccuracy` 選項設置為 `true`，否則返回地理定位結果.
 
-## plugins.geolocation.clearWatch
+## pluginGeolocation.clearWatch
 
 停止觀察到 `watchID` 參數所引用的設備的位置。
 
-    plugins.geolocation.clearWatch(watchID);
+    pluginGeolocation.clearWatch(watchID);
     
 
 ### 參數
@@ -190,11 +190,11 @@ Android 2.x 模擬器不除非 `enableHighAccuracy` 選項設置為 `true`，否
     // Options: watch for changes in position, and use the most
     // accurate position acquisition method available.
     //
-    var watchID = plugins.geolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
+    var watchID = pluginGeolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
     
     // ...later on...
     
-    plugins.geolocation.clearWatch(watchID);
+    pluginGeolocation.clearWatch(watchID);
     
 
 ## Position
@@ -237,7 +237,7 @@ Android 2.x 模擬器不除非 `enableHighAccuracy` 選項設置為 `true`，否
 
 ## PositionError
 
-`PositionError` 物件將傳遞給 `geolocationError` 回呼函數中，當出現 plugins.geolocation 錯誤時發生。
+`PositionError` 物件將傳遞給 `geolocationError` 回呼函數中，當出現 pluginGeolocation 錯誤時發生。
 
 ### 屬性
 
@@ -252,4 +252,4 @@ Android 2.x 模擬器不除非 `enableHighAccuracy` 選項設置為 `true`，否
 *   `PositionError.POSITION_UNAVAILABLE` 
     *   返回設備時，不能檢索的位置。一般情況下，這意味著該設備未連接到網路或無法獲取衛星的修復。
 *   `PositionError.TIMEOUT` 
-    *   返回設備時，無法在指定的時間內檢索位置 `timeout` 中包含 `geolocationOptions` 。 與一起使用時 `plugins.geolocation.watchPosition` ，此錯誤可能反復傳遞給 `geolocationError` 回檔每 `timeout` 毫秒為單位）。
+    *   返回設備時，無法在指定的時間內檢索位置 `timeout` 中包含 `geolocationOptions` 。 與一起使用時 `pluginGeolocation.watchPosition` ，此錯誤可能反復傳遞給 `geolocationError` 回檔每 `timeout` 毫秒為單位）。
