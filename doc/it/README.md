@@ -27,13 +27,13 @@ Questa API è basata sulla [Specifica di W3C Geolocation API](http://dev.w3.org/
 
 **Avviso**: raccolta e utilizzo dei dati di geolocalizzazione solleva questioni di privacy importante. Politica sulla privacy dell'app dovrebbe discutere come app utilizza dati di geolocalizzazione, se è condiviso con altre parti e il livello di precisione dei dati (ad esempio, Cap grossolana, fine, livello, ecc.). Dati di geolocalizzazione sono generalmente considerati sensibili perché può rivelare la sorte dell'utente e, se conservati, la storia dei loro viaggi. Pertanto, oltre alla politica di privacy dell'app, è fortemente consigliabile fornendo un preavviso di just-in-time prima app accede ai dati di geolocalizzazione (se il sistema operativo del dispositivo non farlo già). Tale comunicazione deve fornire le informazioni stesse notate sopra, oltre ad ottenere l'autorizzazione (ad esempio, presentando scelte per **OK** e **No grazie**). Per ulteriori informazioni, vedere la guida sulla Privacy.
 
-Questo plugin definisce un oggetto globale `pluginGeolocation` (per le piattaforme dove altrimenti è manca).
+Questo plugin definisce un oggetto globale `navigator.geolocation` (per le piattaforme dove altrimenti è manca).
 
 Sebbene l'oggetto sia in ambito globale, funzionalità fornite da questo plugin non sono disponibili fino a dopo l'evento `deviceready`.
 
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
-        console.log("pluginGeolocation works well");
+        console.log("navigator.geolocation works well");
     }
     
 
@@ -68,9 +68,9 @@ Versioni precedenti di cordova comunque possono installare tramite l'id deprecat
 
 ## Metodi
 
-  * pluginGeolocation.getCurrentPosition
-  * pluginGeolocation.watchPosition
-  * pluginGeolocation.clearWatch
+  * navigator.geolocation.getCurrentPosition
+  * navigator.geolocation.watchPosition
+  * navigator.geolocation.clearWatch
 
 ## Oggetti (sola lettura)
 
@@ -78,11 +78,11 @@ Versioni precedenti di cordova comunque possono installare tramite l'id deprecat
   * PositionError
   * Coordinates
 
-## pluginGeolocation.getCurrentPosition
+## navigator.geolocation.getCurrentPosition
 
 Restituisce la posizione corrente del dispositivo il callback di `geolocationSuccess` con un `Position` di oggetto come parametro. Se c'è un errore, `geolocationError` callback viene passato un oggetto `PositionError`.
 
-    pluginGeolocation.getCurrentPosition(geolocationSuccess,
+    navigator.geolocation.getCurrentPosition(geolocationSuccess,
                                              [geolocationError],
                                              [geolocationOptions]);
     
@@ -119,14 +119,14 @@ Restituisce la posizione corrente del dispositivo il callback di `geolocationSuc
               'message: ' + error.message + '\n');
     }
     
-    pluginGeolocation.getCurrentPosition(onSuccess, onError);
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
     
 
-## pluginGeolocation.watchPosition
+## navigator.geolocation.watchPosition
 
 Restituisce la posizione corrente del dispositivo quando viene rilevata una modifica della posizione. Quando il dispositivo recupera una nuova posizione, il callback `geolocationSuccess` esegue con un `Position` di oggetto come parametro. Se c'è un errore, `geolocationError` callback viene eseguito con un oggetto `PositionError` come parametro.
 
-    var watchId = pluginGeolocation.watchPosition(geolocationSuccess,
+    var watchId = navigator.geolocation.watchPosition(geolocationSuccess,
                                                       [geolocationError],
                                                       [geolocationOptions]);
     
@@ -141,7 +141,7 @@ Restituisce la posizione corrente del dispositivo quando viene rilevata una modi
 
 ### Restituisce
 
-  * **Stringa**: restituisce un id di orologio che fa riferimento l'intervallo di posizione orologio. L'id dell'orologio deve essere usato con `pluginGeolocation.clearWatch` a smettere di guardare per cambiamenti di posizione.
+  * **Stringa**: restituisce un id di orologio che fa riferimento l'intervallo di posizione orologio. L'id dell'orologio deve essere usato con `navigator.geolocation.clearWatch` a smettere di guardare per cambiamenti di posizione.
 
 ### Esempio
 
@@ -165,7 +165,7 @@ Restituisce la posizione corrente del dispositivo quando viene rilevata una modi
     
     // Options: throw an error if no update is received every 30 seconds.
     //
-    var watchID = pluginGeolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
+    var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
     
 
 ## geolocationOptions
@@ -179,7 +179,7 @@ Parametri opzionali per personalizzare il recupero di geolocalizzazione `Positio
 
   * **enableHighAccuracy**: fornisce un suggerimento che l'applicazione ha bisogno i migliori risultati possibili. Per impostazione predefinita, il dispositivo tenta di recuperare un `Position` usando metodi basati sulla rete. Impostando questa proprietà su `true` indica al framework di utilizzare metodi più accurati, come posizionamento satellitare. *(Boolean)*
 
-  * **timeout**: la lunghezza massima di tempo (in millisecondi) che è consentito per passare dalla chiamata a `pluginGeolocation.getCurrentPosition` o `geolocation.watchPosition` fino a quando il corrispondente `geolocationSuccess` callback viene eseguito. Se il `geolocationSuccess` callback non viene richiamato entro questo tempo, il `geolocationError` callback viene passata una `PositionError.TIMEOUT` codice di errore. (Si noti che, quando utilizzato in combinazione con `geolocation.watchPosition` , il `geolocationError` callback potrebbe essere chiamato un intervallo ogni `timeout` millisecondi!) *(Numero)*
+  * **timeout**: la lunghezza massima di tempo (in millisecondi) che è consentito per passare dalla chiamata a `navigator.geolocation.getCurrentPosition` o `geolocation.watchPosition` fino a quando il corrispondente `geolocationSuccess` callback viene eseguito. Se il `geolocationSuccess` callback non viene richiamato entro questo tempo, il `geolocationError` callback viene passata una `PositionError.TIMEOUT` codice di errore. (Si noti che, quando utilizzato in combinazione con `geolocation.watchPosition` , il `geolocationError` callback potrebbe essere chiamato un intervallo ogni `timeout` millisecondi!) *(Numero)*
 
   * **maximumAge**: accettare una posizione memorizzata nella cache in cui età è minore il tempo specificato in millisecondi. *(Numero)*
 
@@ -187,11 +187,11 @@ Parametri opzionali per personalizzare il recupero di geolocalizzazione `Positio
 
 Emulatori Android 2. x non restituiscono un risultato di geolocalizzazione a meno che l'opzione `enableHighAccuracy` è impostata su `true`.
 
-## pluginGeolocation.clearWatch
+## navigator.geolocation.clearWatch
 
 Smettere di guardare per le modifiche alla posizione del dispositivo a cui fa riferimento il parametro `watchID`.
 
-    pluginGeolocation.clearWatch(watchID);
+    navigator.geolocation.clearWatch(watchID);
     
 
 ### Parametri
@@ -203,11 +203,11 @@ Smettere di guardare per le modifiche alla posizione del dispositivo a cui fa ri
     // Options: watch for changes in position, and use the most
     // accurate position acquisition method available.
     //
-    var watchID = pluginGeolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
+    var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
     
     // ...later on...
     
-    pluginGeolocation.clearWatch(watchID);
+    navigator.geolocation.clearWatch(watchID);
     
 
 ## Position
@@ -250,7 +250,7 @@ Un oggetto `Coordinates` è associato a un oggetto `Position` disponibile per le
 
 ## PositionError
 
-L'oggetto `PositionError` viene passato alla funzione di callback `geolocationError` quando si verifica un errore con pluginGeolocation.
+L'oggetto `PositionError` viene passato alla funzione di callback `geolocationError` quando si verifica un errore con navigator.geolocation.
 
 ### Proprietà
 
@@ -265,4 +265,4 @@ L'oggetto `PositionError` viene passato alla funzione di callback `geolocationEr
   * `PositionError.POSITION_UNAVAILABLE` 
       * Restituito quando il dispositivo è in grado di recuperare una posizione. In generale, questo significa che il dispositivo non è connesso a una rete o non può ottenere un fix satellitare.
   * `PositionError.TIMEOUT` 
-      * Restituito quando il dispositivo è in grado di recuperare una posizione entro il tempo specificato dal `timeout` incluso `geolocationOptions` . Quando utilizzato con `pluginGeolocation.watchPosition` , questo errore potrebbe essere passato più volte per la `geolocationError` richiamata ogni `timeout` millisecondi.
+      * Restituito quando il dispositivo è in grado di recuperare una posizione entro il tempo specificato dal `timeout` incluso `geolocationOptions` . Quando utilizzato con `navigator.geolocation.watchPosition` , questo errore potrebbe essere passato più volte per la `geolocationError` richiamata ogni `timeout` millisecondi.
